@@ -1,8 +1,8 @@
 :root {
   --green: #0B8F4D;
   --blue: #0A1F44;
-  --foreground: #1a202c;
-  --foreground-muted: #4a5568;
+  --foreground: #000000;
+  --foreground-muted: #1a1a1a;
   --bg-primary: #f9fafb;
   --bg-secondary: #f3f4f6;
   --glass-bg: rgba(255, 255, 255, 0.7);
