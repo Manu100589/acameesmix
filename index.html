@@ -1,0 +1,708 @@
+<!DOCTYPE html>
+<html lang="fr" class="scroll-smooth">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ACAMEES - L'excellence en évaluation environnementale</title>
+  <meta name="description"
+    content="ACAMEES réunit experts, chercheurs et institutions engagés pour une évaluation environnementale rigoureuse au Cameroun." />
+  <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet">
+  <!-- GSAP via CDN for faster development or if local is tricky -->
+  <!-- We installed gsap locally so we'll import it in main.js -->
+
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            acamees: {
+              green: '#0B8F4D',
+              blue: '#0A1F44'
+            }
+          },
+          fontFamily: {
+            inter: ['Inter', 'sans-serif'],
+            outfit: ['Outfit', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+  <link rel="stylesheet" href="./style.css">
+</head>
+
+<body class="bg-gray-50 text-gray-900 dark-mode-init">
+  <!-- Loader -->
+  <div id="loader"
+    class="fixed inset-0 z-50 flex items-center justify-center bg-blue-900 transition-opacity duration-700">
+    <div class="text-white text-5xl font-outfit font-bold tracking-widest relative">
+      <span class="bg-clip-text text-transparent bg-gradient-to-r from-green-400 to-blue-400 loader-text">ACAMEES</span>
+      <div class="absolute -inset-4 bg-green-500/20 blur-xl rounded-full loader-glow"></div>
+    </div>
+  </div>
+
+  <!-- Background Elements -->
+  <div class="fixed inset-0 z-[-1] overflow-hidden pointer-events-none">
+    <div
+      class="absolute top-[-10%] left-[-10%] w-[40vw] h-[40vw] rounded-full bg-blue-900/10 blur-[100px] ambient-blob blob-1">
+    </div>
+    <div
+      class="absolute bottom-[-10%] right-[-10%] w-[40vw] h-[40vw] rounded-full bg-green-600/10 blur-[100px] ambient-blob blob-2">
+    </div>
+  </div>
+
+  <!-- Floating WhatsApp -->
+  <a href="#"
+    class="fixed bottom-6 right-6 z-40 bg-[#25D366] hover:bg-[#128C7E] text-white p-4 rounded-full shadow-[0_4px_24px_rgba(37,211,102,0.4)] transition-all transform hover:scale-110 hover:-translate-y-1">
+    <i data-lucide="message-circle" class="w-6 h-6"></i>
+  </a>
+
+  <!-- Back to top -->
+  <button id="back-to-top"
+    class="fixed bottom-6 left-6 z-40 bg-white/10 backdrop-blur-md border border-white/20 text-white p-3 rounded-full shadow-lg transition-all transform scale-0 cursor-pointer hover:bg-white/20 theme-dark-element">
+    <i data-lucide="arrow-up" class="w-5 h-5 text-gray-800 dark:text-white"></i>
+  </button>
+
+  <!-- Navigation -->
+  <header class="fixed top-0 w-full z-40 transition-all duration-300" id="header">
+    <div
+      class="glass-nav mx-auto px-6 py-4 mt-4 w-[95%] max-w-7xl rounded-2xl flex justify-between items-center transition-all">
+      <a href="#" class="text-2xl font-outfit font-bold tracking-tight text-gradient">ACAMEES</a>
+
+      <nav class="hidden md:flex gap-8 items-center text-sm font-medium nav-links">
+        <a href="#about" class="hover-text-glow transition-colors">À propos</a>
+        <a href="#missions" class="hover-text-glow transition-colors">Missions</a>
+        <a href="#activites" class="hover-text-glow transition-colors">Activités</a>
+        <a href="#partenaires" class="hover-text-glow transition-colors">Partenaires</a>
+      </nav>
+
+      <a href="#contact" class="hidden md:flex btn-primary text-sm font-medium items-center gap-2">
+        Nous contacter <i data-lucide="arrow-right" class="w-4 h-4"></i>
+      </a>
+
+      <button class="md:hidden text-gray-800 dark:text-white" id="mobile-menu-btn">
+        <i data-lucide="menu" class="w-6 h-6"></i>
+      </button>
+    </div>
+  </header>
+
+  <!-- Mobile Menu Overlay -->
+  <div id="mobile-menu"
+    class="fixed inset-0 z-50 bg-[#0A1F44]/95 backdrop-blur-xl flex flex-col items-center justify-center translate-x-full transition-transform duration-500">
+    <button id="close-menu-btn" class="absolute top-8 right-8 text-white">
+      <i data-lucide="x" class="w-8 h-8"></i>
+    </button>
+    <div class="flex flex-col gap-8 text-2xl font-outfit font-medium text-white text-center">
+      <a href="#about" class="mobile-link">À propos</a>
+      <a href="#missions" class="mobile-link">Missions</a>
+      <a href="#activites" class="mobile-link">Activités</a>
+      <a href="#partenaires" class="mobile-link">Partenaires</a>
+      <a href="#contact" class="mobile-link text-[#0B8F4D]">Nous contacter</a>
+    </div>
+  </div>
+
+  <!-- HERO SECTION -->
+  <section class="h-screen relative flex items-center justify-center overflow-hidden snap-section" id="home">
+    <!-- Dark overlay & particles container -->
+    <div class="absolute inset-0 bg-[#0A1F44] z-[-2]"></div>
+    <div class="absolute inset-0 z-[-1] opacity-60" id="particles-container">
+      <!-- We will generate simple particles via JS or CSS -->
+    </div>
+    <div class="absolute inset-0 bg-gradient-to-b from-[#0A1F44]/30 via-transparent to-[#0A1F44] z-[0]"></div>
+
+    <div class="container mx-auto px-6 relative z-10 text-center flex flex-col items-center mt-16 max-w-5xl">
+      <div
+        class="inline-block px-4 py-1.5 rounded-full border border-white/10 bg-white/5 backdrop-blur-sm mb-6 hero-badge text-white text-xs font-medium uppercase tracking-wider">
+        🌍 Au service de notre écosystème
+      </div>
+      <h1 class="text-5xl md:text-7xl lg:text-8xl font-outfit font-extrabold text-white leading-tight mb-4 hero-title">
+        <span class="block">ACAMEES</span>
+        <span class="block text-3xl md:text-5xl mt-2 text-white/90">L'excellence en évaluation environnementale</span>
+      </h1>
+      <p class="text-lg md:text-xl text-white/70 font-inter max-w-2xl mt-6 mb-10 hero-subtitle">
+        Pour un développement durable, responsable et scientifiquement maîtrisé au Cameroun.
+      </p>
+
+      <div class="flex flex-col sm:flex-row gap-4 hero-ctas w-full sm:w-auto justify-center">
+        <a href="#about" class="btn-primary w-full sm:w-auto group">
+          Explorer <i data-lucide="arrow-down"
+            class="ml-2 w-4 h-4 inline-block group-hover:translate-y-1 transition-transform"></i>
+        </a>
+        <a href="#contact" class="btn-secondary w-full sm:w-auto group">
+          Nous contacter <i data-lucide="mail" class="ml-2 w-4 h-4 inline-block"></i>
+        </a>
+      </div>
+    </div>
+
+    <!-- Scroll Indicator -->
+    <div
+      class="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-white/50 opacity-0 hero-scroll">
+      <span class="text-xs uppercase tracking-widest font-medium">Scroll</span>
+      <div class="w-px h-12 bg-gradient-to-b from-white/50 to-transparent"></div>
+    </div>
+  </section>
+
+  <!-- SECTION 2 - À PROPOS -->
+  <section id="about" class="py-32 relative overflow-hidden snap-section theme-light-dark">
+    <div class="container mx-auto px-6 max-w-7xl">
+      <div class="flex flex-col lg:flex-row items-center gap-16">
+        <div class="w-full lg:w-1/2 relative">
+          <div class="relative rounded-3xl overflow-hidden aspect-[4/5] img-parallax-container shadow-2xl">
+            <!-- Placeholder for nature/team image -->
+            <div
+              class="w-full h-full bg-gradient-to-tr from-[#0B8F4D]/20 to-[#0A1F44]/40 absolute inset-0 mix-blend-overlay z-10">
+            </div>
+            <img src="/hero-image.jpg" alt="Équipe professionnelle" class="w-full h-full object-cover img-parallax">
+          </div>
+          <!-- Floating stat -->
+          <div class="absolute -bottom-8 -right-8 glass-card p-6 rounded-2xl max-w-xs shadow-xl stagger-reveal">
+            <div class="flex items-center gap-4">
+              <div class="w-12 h-12 rounded-full bg-[#0B8F4D]/20 flex items-center justify-center text-[#0B8F4D]">
+                <i data-lucide="shield-check"></i>
+              </div>
+              <div>
+                <h4 class="font-outfit font-bold text-xl text-foreground">Rigoureuse</h4>
+                <p class="text-sm text-foreground-muted">Évaluation certifiée</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="w-full lg:w-1/2 lg:pl-10">
+          <h2 class="section-title text-foreground mb-6 stagger-reveal">Une expertise au service de l'impact</h2>
+          <p class="text-xl md:text-2xl font-outfit text-foreground-muted leading-relaxed mb-8 stagger-reveal">
+            <strong>ACAMEES</strong> est une organisation regroupant des <span
+              class="text-[#0B8F4D] font-semibold glow-text">experts</span>, des <span
+              class="text-[#0B8F4D] font-semibold glow-text">chercheurs</span> et des institutions engagés pour une
+            évaluation environnementale rigoureuse au Cameroun.
+          </p>
+          <div class="space-y-6 stagger-reveal">
+            <div class="flex gap-4 items-start">
+              <i data-lucide="check-circle-2" class="text-[#0B8F4D] mt-1 shrink-0"></i>
+              <p class="text-foreground-muted">Garantir que chaque projet respecte les normes environnementales les plus
+                strictes.</p>
+            </div>
+            <div class="flex gap-4 items-start">
+              <i data-lucide="check-circle-2" class="text-[#0B8F4D] mt-1 shrink-0"></i>
+              <p class="text-foreground-muted">Accompagner les décideurs dans la transition écologique locale et
+                internationale.</p>
+            </div>
+          </div>
+          <div class="mt-10 stagger-reveal">
+            <a href="#missions"
+              class="text-[#0B8F4D] font-semibold flex items-center gap-2 hover:gap-4 transition-all uppercase tracking-wide text-sm">
+              Découvrir nos missions <i data-lucide="arrow-right" class="w-4 h-4"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 3 - MISSIONS (CARDS PREMIUM) -->
+  <section id="missions"
+    class="py-32 relative bg-gray-100 dark:bg-[#0A1F44]/5 snap-section section-bg-alt theme-light-dark">
+    <div class="container mx-auto px-6 max-w-7xl relative z-10">
+      <div class="text-center max-w-3xl mx-auto mb-20 section-header">
+        <span class="text-[#0B8F4D] font-semibold tracking-wider uppercase text-sm mb-2 block">Ce que nous
+          faisons</span>
+        <h2 class="text-4xl md:text-5xl font-outfit font-bold text-foreground mb-4">Nos Missions Principales</h2>
+        <p class="text-foreground-muted">L'engagement fondamental d'ACAMEES s'articule autour de 5 piliers stratégiques.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <!-- Card 1 -->
+        <div class="premium-card group">
+          <div class="card-glow"></div>
+          <div class="relative z-10">
+            <div
+              class="icon-box mb-6 text-[#0B8F4D] bg-[#0B8F4D]/10 group-hover:bg-[#0B8F4D] group-hover:text-white transition-colors duration-500">
+              <i data-lucide="briefcase"></i>
+            </div>
+            <h3 class="text-xl font-outfit font-bold text-foreground mb-3">Conseil stratégique</h3>
+            <p class="text-foreground-muted text-sm leading-relaxed">Accompagnement sur mesure pour l'intégration des
+              normes environnementales et sociales dès la phase de conception.</p>
+          </div>
+        </div>
+
+        <!-- Card 2 -->
+        <div class="premium-card group">
+          <div class="card-glow"></div>
+          <div class="relative z-10">
+            <div
+              class="icon-box mb-6 text-[#0B8F4D] bg-[#0B8F4D]/10 group-hover:bg-[#0B8F4D] group-hover:text-white transition-colors duration-500">
+              <i data-lucide="graduation-cap"></i>
+            </div>
+            <h3 class="text-xl font-outfit font-bold text-foreground mb-3">Formation</h3>
+            <p class="text-foreground-muted text-sm leading-relaxed">Programmes de certification et séminaires pointus
+              pour les professionnels de l'environnement.</p>
+          </div>
+        </div>
+
+        <!-- Card 3 -->
+        <div class="premium-card group">
+          <div class="card-glow"></div>
+          <div class="relative z-10">
+            <div
+              class="icon-box mb-6 text-[#0B8F4D] bg-[#0B8F4D]/10 group-hover:bg-[#0B8F4D] group-hover:text-white transition-colors duration-500">
+              <i data-lucide="microscope"></i>
+            </div>
+            <h3 class="text-xl font-outfit font-bold text-foreground mb-3">Recherche scientifique</h3>
+            <p class="text-foreground-muted text-sm leading-relaxed">Études et publications pour faire avancer la
+              connaissance sur l'impact écologique au niveau local.</p>
+          </div>
+        </div>
+
+        <!-- Card 4 -->
+        <div class="premium-card group">
+          <div class="card-glow"></div>
+          <div class="relative z-10">
+            <div
+              class="icon-box mb-6 text-[#0B8F4D] bg-[#0B8F4D]/10 group-hover:bg-[#0B8F4D] group-hover:text-white transition-colors duration-500">
+              <i data-lucide="scale"></i>
+            </div>
+            <h3 class="text-xl font-outfit font-bold text-foreground mb-3">Gouvernance environnementale</h3>
+            <p class="text-foreground-muted text-sm leading-relaxed">Aide à la mise en place de politiques publiques
+              durables et audit des processus existants.</p>
+          </div>
+        </div>
+
+        <!-- Card 5 -->
+        <div class="premium-card group lg:col-span-2 relative overflow-hidden">
+          <div class="card-glow"></div>
+          <div
+            class="absolute right-0 top-0 w-64 h-64 bg-blue-500/5 rounded-full blur-3xl group-hover:bg-blue-500/20 transition-all duration-700">
+          </div>
+          <div class="relative z-10 flex flex-col sm:flex-row items-start sm:items-center gap-6">
+            <div
+              class="icon-box shrink-0 text-[#0A1F44] bg-[#0A1F44]/10 group-hover:bg-[#0A1F44] group-hover:text-white transition-colors duration-500">
+              <i data-lucide="globe"></i>
+            </div>
+            <div>
+              <h3 class="text-xl font-outfit font-bold text-foreground mb-3">Coopération internationale</h3>
+              <p class="text-foreground-muted text-sm leading-relaxed">Réseautage et partenariats avec les ONG et
+                institutions mondiales pour harmoniser les pratiques au Cameroun.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 4 - AXES D'INTERVENTION (TIMELINE) -->
+  <section class="py-32 relative snap-section theme-light-dark">
+    <div class="container mx-auto px-6 max-w-5xl">
+      <div class="text-center mb-20 section-header">
+        <h2 class="text-4xl md:text-5xl font-outfit font-bold text-foreground mb-4">Nos Axes d'Intervention</h2>
+      </div>
+
+      <div class="relative">
+        <!-- Timeline Line -->
+        <div
+          class="absolute left-4 md:left-1/2 top-0 bottom-0 w-px bg-gradient-to-b from-transparent via-[#0B8F4D]/50 to-transparent timeline-line">
+        </div>
+        <div
+          class="absolute left-4 md:left-1/2 top-0 bottom-0 w-px bg-[#0B8F4D] timeline-progress origin-top scale-y-0">
+        </div>
+
+        <div class="space-y-16">
+          <!-- Item 1 -->
+          <div class="relative flex flex-col md:flex-row items-center timeline-item">
+            <div class="hidden md:block w-1/2 pr-12 text-right">
+              <h4 class="text-2xl font-outfit font-bold text-foreground">Cadre Légal</h4>
+              <p class="text-foreground-muted mt-2">Appui à l'élaboration des textes de loi.</p>
+            </div>
+            <div
+              class="absolute left-4 md:left-1/2 w-4 h-4 rounded-full bg-white border-2 border-[#0B8F4D] -translate-x-1/2 z-10 timeline-dot">
+            </div>
+            <div class="ml-12 md:ml-0 md:w-1/2 md:pl-12">
+              <div class="md:hidden">
+                <h4 class="text-2xl font-outfit font-bold text-foreground">Cadre Légal</h4>
+                <p class="text-foreground-muted mt-2">Appui à l'élaboration des textes de loi.</p>
+              </div>
+              <div class="glass-card p-6 rounded-2xl shadow-sm text-sm text-foreground-muted hidden md:block">
+                Harmonisation des directives nationales avec les standards internationaux.
+              </div>
+            </div>
+          </div>
+
+          <!-- Item 2 -->
+          <div class="relative flex flex-col md:flex-row items-center timeline-item">
+            <div class="ml-12 md:ml-0 md:w-1/2 md:pr-12 text-left md:text-right">
+              <div class="md:hidden">
+                <h4 class="text-2xl font-outfit font-bold text-foreground">Sensibilisation</h4>
+                <p class="text-foreground-muted mt-2">Pour un éveil des consciences écologiques.</p>
+              </div>
+              <div class="glass-card p-6 rounded-2xl shadow-sm text-sm text-foreground-muted hidden md:block">
+                Campagnes auprès des communautés et des entreprises.
+              </div>
+            </div>
+            <div
+              class="absolute left-4 md:left-1/2 w-4 h-4 rounded-full bg-white border-2 border-[#0B8F4D] -translate-x-1/2 z-10 timeline-dot">
+            </div>
+            <div class="hidden md:block w-1/2 pl-12 text-left">
+              <h4 class="text-2xl font-outfit font-bold text-foreground">Sensibilisation</h4>
+              <p class="text-foreground-muted mt-2">Pour un éveil des consciences écologiques.</p>
+            </div>
+          </div>
+
+          <!-- Item 3 -->
+          <div class="relative flex flex-col md:flex-row items-center timeline-item">
+            <div class="hidden md:block w-1/2 pr-12 text-right">
+              <h4 class="text-2xl font-outfit font-bold text-foreground">Renforcement des capacités</h4>
+              <p class="text-foreground-muted mt-2">Transfert de compétences aux acteurs locaux.</p>
+            </div>
+            <div
+              class="absolute left-4 md:left-1/2 w-4 h-4 rounded-full bg-white border-2 border-[#0B8F4D] -translate-x-1/2 z-10 timeline-dot">
+            </div>
+            <div class="ml-12 md:ml-0 md:w-1/2 md:pl-12">
+              <div class="md:hidden">
+                <h4 class="text-2xl font-outfit font-bold text-foreground">Renforcement des capacités</h4>
+                <p class="text-foreground-muted mt-2">Transfert de compétences aux acteurs locaux.</p>
+              </div>
+              <div class="glass-card p-6 rounded-2xl shadow-sm text-sm text-foreground-muted hidden md:block">
+                Ateliers techniques et outils d'évaluation modernes.
+              </div>
+            </div>
+          </div>
+
+          <!-- Item 4 -->
+          <div class="relative flex flex-col md:flex-row items-center timeline-item">
+            <div class="ml-12 md:ml-0 md:w-1/2 md:pr-12 text-left md:text-right">
+              <div class="md:hidden">
+                <h4 class="text-2xl font-outfit font-bold text-foreground">Plaidoyer</h4>
+                <p class="text-foreground-muted mt-2">Défense des intérêts environnementaux.</p>
+              </div>
+              <div class="glass-card p-6 rounded-2xl shadow-sm text-sm text-foreground-muted hidden md:block">
+                Interventions auprès des pouvoirs publics pour de meilleures régulations.
+              </div>
+            </div>
+            <div
+              class="absolute left-4 md:left-1/2 w-4 h-4 rounded-full bg-white border-2 border-[#0B8F4D] -translate-x-1/2 z-10 timeline-dot">
+            </div>
+            <div class="hidden md:block w-1/2 pl-12 text-left">
+              <h4 class="text-2xl font-outfit font-bold text-foreground">Plaidoyer</h4>
+              <p class="text-foreground-muted mt-2">Défense des intérêts environnementaux.</p>
+            </div>
+          </div>
+
+          <!-- Item 5 -->
+          <div class="relative flex flex-col md:flex-row items-center timeline-item">
+            <div class="hidden md:block w-1/2 pr-12 text-right">
+              <h4 class="text-2xl font-outfit font-bold text-foreground">Études</h4>
+              <p class="text-foreground-muted mt-2">Analyses d'impact expertes.</p>
+            </div>
+            <div
+              class="absolute left-4 md:left-1/2 w-4 h-4 rounded-full bg-white border-2 border-[#0B8F4D] -translate-x-1/2 z-10 timeline-dot">
+            </div>
+            <div class="ml-12 md:ml-0 md:w-1/2 md:pl-12">
+              <div class="md:hidden">
+                <h4 class="text-2xl font-outfit font-bold text-foreground">Études</h4>
+                <p class="text-foreground-muted mt-2">Analyses d'impact expertes.</p>
+              </div>
+              <div class="glass-card p-6 rounded-2xl shadow-sm text-sm text-foreground-muted hidden md:block">
+                Réalisation d'Évaluations Environnementales et Sociales Stratégiques (EESS).
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 5 - FORMATIONS & ACTIVITÉS -->
+  <section id="activites" class="py-32 relative section-bg-alt theme-light-dark">
+    <div class="container mx-auto px-6 max-w-7xl">
+      <div class="flex flex-col md:flex-row justify-between items-end mb-16 gap-6 section-header">
+        <div class="max-w-2xl">
+          <h2 class="text-4xl md:text-5xl font-outfit font-bold text-foreground mb-4">Formations & Activités</h2>
+          <p class="text-foreground-muted">Des parcours certifiants pour maîtriser les exigences environnementales
+            d'aujourd'hui.</p>
+        </div>
+        <div class="flex flex-wrap gap-3">
+          <span class="badge-modern"><i data-lucide="check" class="w-3 h-3 text-[#0B8F4D]"></i> Séminaires</span>
+          <span class="badge-modern"><i data-lucide="check" class="w-3 h-3 text-[#0B8F4D]"></i> Formations</span>
+          <span class="badge-modern"><i data-lucide="check" class="w-3 h-3 text-[#0B8F4D]"></i> Ateliers</span>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <!-- Item -->
+        <div class="activity-card group">
+          <div class="h-48 overflow-hidden relative">
+            <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent z-10"></div>
+            <img src="https://images.unsplash.com/photo-1573164713988-8665fc963095?auto=format&fit=crop&q=80&w=600"
+              alt="Audit" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+            <div class="absolute bottom-4 left-4 z-20">
+              <span class="bg-[#0B8F4D] text-white text-xs px-2 py-1 rounded">Formation</span>
+            </div>
+          </div>
+          <div class="p-6">
+            <h3 class="text-xl font-outfit font-bold text-foreground mb-2">Audit environnemental</h3>
+            <p class="text-foreground-muted text-sm mb-4">Méthodologies appliquées d'évaluation et de contrôle des
+              indicateurs de performance verte.</p>
+            <button
+              class="text-[#0B8F4D] text-sm font-semibold flex items-center gap-1 group-hover:gap-2 transition-all">En
+              savoir plus <i data-lucide="arrow-right" class="w-4 h-4"></i></button>
+          </div>
+        </div>
+
+        <!-- Item -->
+        <div class="activity-card group">
+          <div class="h-48 overflow-hidden relative">
+            <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent z-10"></div>
+            <img src="https://images.unsplash.com/photo-1581092795360-fd1ca04f0952?auto=format&fit=crop&q=80&w=600"
+              alt="Dangers" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+            <div class="absolute bottom-4 left-4 z-20">
+              <span class="bg-[#0B8F4D] text-white text-xs px-2 py-1 rounded">Atelier</span>
+            </div>
+          </div>
+          <div class="p-6">
+            <h3 class="text-xl font-outfit font-bold text-foreground mb-2">Étude des dangers</h3>
+            <p class="text-foreground-muted text-sm mb-4">Identification et prévention des risques industriels sur
+              l'environnement et de la sécurité.</p>
+            <button
+              class="text-[#0B8F4D] text-sm font-semibold flex items-center gap-1 group-hover:gap-2 transition-all">En
+              savoir plus <i data-lucide="arrow-right" class="w-4 h-4"></i></button>
+          </div>
+        </div>
+
+        <!-- Item -->
+        <div class="activity-card group">
+          <div class="h-48 overflow-hidden relative">
+            <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent z-10"></div>
+            <img
+              src="https://images.pexels.com/photos/1181248/pexels-photo-1181248.jpeg?auto=compress&cs=tinysrgb&w=600"
+              alt="Insertion"
+              class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+            <div class="absolute bottom-4 left-4 z-20">
+              <span class="bg-[#0B8F4D] text-white text-xs px-2 py-1 rounded">Séminaire</span>
+            </div>
+          </div>
+          <div class="p-6">
+            <h3 class="text-xl font-outfit font-bold text-foreground mb-2">Insertion professionnelle</h3>
+            <p class="text-foreground-muted text-sm mb-4">Préparation des jeunes diplômés aux métiers de l'évaluation
+              environnementale.</p>
+            <button
+              class="text-[#0B8F4D] text-sm font-semibold flex items-center gap-1 group-hover:gap-2 transition-all">En
+              savoir plus <i data-lucide="arrow-right" class="w-4 h-4"></i></button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 7 - CHIFFRES CLÉS -->
+  <section class="py-24 relative overflow-hidden bg-[#0A1F44] text-white snap-section">
+    <!-- Decor -->
+    <div
+      class="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=2000&q=80')] bg-cover bg-center opacity-10 mix-blend-screen parallax-bg">
+    </div>
+    <div class="absolute inset-0 bg-gradient-to-r from-[#0A1F44] via-[#0A1F44]/80 to-[#0B8F4D]/20"></div>
+
+    <div class="container mx-auto px-6 relative z-10 max-w-6xl">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-12 text-center" id="counter-container">
+        <div class="stat-item relative">
+          <h3 class="text-6xl md:text-7xl font-outfit font-bold text-[#0B8F4D] mb-2"><span class="counter"
+              data-target="100">0</span>+</h3>
+          <p class="text-lg text-white/80 uppercase tracking-widest font-medium">Projets réalisés</p>
+        </div>
+        <div class="stat-item relative border-y md:border-y-0 md:border-x border-white/10 py-8 md:py-0">
+          <h3 class="text-6xl md:text-7xl font-outfit font-bold text-[#0B8F4D] mb-2"><span class="counter"
+              data-target="500">0</span>+</h3>
+          <p class="text-lg text-white/80 uppercase tracking-widest font-medium">Participants formés</p>
+        </div>
+        <div class="stat-item relative">
+          <h3 class="text-6xl md:text-7xl font-outfit font-bold text-[#0B8F4D] mb-2"><span class="counter"
+              data-target="20">0</span>+</h3>
+          <p class="text-lg text-white/80 uppercase tracking-widest font-medium">Partenaires actifs</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 6 - PARTENAIRES -->
+  <section id="partenaires"
+    class="py-24 overflow-hidden border-b border-gray-200 dark:border-gray-800 theme-light-dark">
+    <div class="container mx-auto px-6 max-w-7xl">
+      <p class="text-center text-sm font-semibold text-foreground-muted uppercase tracking-widest mb-10">Nos Partenaires
+        de Confiance</p>
+
+      <div class="relative w-full inline-flex flex-nowrap overflow-hidden partner-slider group">
+        <div
+          class="flex items-center justify-center md:justify-start [&_img]:max-w-none gap-20 animate-infinite-scroll">
+          <!-- Logos -->
+          <h3
+            class="text-2xl font-bold font-outfit text-gray-400 dark:text-gray-600 hover:text-[#0A1F44] dark:hover:text-white transition-all cursor-pointer">
+            NCEA</h3>
+          <h3
+            class="text-2xl font-bold font-outfit text-gray-400 dark:text-gray-600 hover:text-[#0B8F4D] transition-all cursor-pointer">
+            CLEAA</h3>
+          <h3
+            class="text-2xl font-bold font-outfit text-gray-400 dark:text-gray-600 hover:text-blue-500 transition-all cursor-pointer">
+            IAIA</h3>
+          <h3
+            class="text-2xl font-bold font-outfit text-gray-400 dark:text-gray-600 hover:text-[#0A1F44] dark:hover:text-white transition-all cursor-pointer">
+            MINDEF</h3>
+          <h3
+            class="text-2xl font-bold font-outfit text-gray-400 dark:text-gray-600 hover:text-[#0B8F4D] transition-all cursor-pointer">
+            MINEPDED</h3>
+
+          <!-- Repeat for logic infinite -->
+          <h3
+            class="text-2xl font-bold font-outfit text-gray-400 dark:text-gray-600 hover:text-[#0A1F44] dark:hover:text-white transition-all cursor-pointer">
+            NCEA</h3>
+          <h3
+            class="text-2xl font-bold font-outfit text-gray-400 dark:text-gray-600 hover:text-[#0B8F4D] transition-all cursor-pointer">
+            CLEAA</h3>
+          <h3
+            class="text-2xl font-bold font-outfit text-gray-400 dark:text-gray-600 hover:text-blue-500 transition-all cursor-pointer">
+            IAIA</h3>
+          <h3
+            class="text-2xl font-bold font-outfit text-gray-400 dark:text-gray-600 hover:text-[#0A1F44] dark:hover:text-white transition-all cursor-pointer">
+            MINDEF</h3>
+          <h3
+            class="text-2xl font-bold font-outfit text-gray-400 dark:text-gray-600 hover:text-[#0B8F4D] transition-all cursor-pointer">
+            MINEPDED</h3>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+
+  <!-- SECTION 9 - CONTACT (IMPACT MAX) -->
+  <section id="contact" class="py-32 relative bg-[#050B14] text-white overflow-hidden snap-section">
+    <!-- Glow effects -->
+    <div
+      class="absolute top-0 right-0 w-[500px] h-[500px] bg-[#0B8F4D] rounded-full mix-blend-lighten filter blur-[150px] opacity-20">
+    </div>
+    <div
+      class="absolute bottom-0 left-0 w-[500px] h-[500px] bg-[#0A1F44] rounded-full mix-blend-lighten filter blur-[150px] opacity-40">
+    </div>
+
+    <div class="container mx-auto px-6 max-w-6xl relative z-10">
+      <div class="flex flex-col lg:flex-row gap-16">
+        <div class="w-full lg:w-5/12">
+          <h2 class="text-4xl md:text-6xl font-outfit font-bold mb-6">Parlons de votre <span
+              class="text-transparent bg-clip-text bg-gradient-to-r from-[#0B8F4D] to-blue-400">projet</span></h2>
+          <p class="text-white/60 mb-12 text-lg">ACAMEES est à votre écoute pour vous accompagner vers l'excellence
+            environnementale.</p>
+
+          <div class="space-y-8">
+            <div class="flex items-start gap-4 group">
+              <div
+                class="w-12 h-12 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center shrink-0 group-hover:bg-[#0B8F4D]/20 group-hover:border-[#0B8F4D]/50 transition-all">
+                <i data-lucide="map-pin" class="text-white group-hover:text-[#0B8F4D] transition-colors"></i>
+              </div>
+              <div>
+                <h4 class="text-lg font-outfit font-semibold mb-1">Notre Siège</h4>
+                <p class="text-white/60">Yaoundé – Cameroun</p>
+              </div>
+            </div>
+
+            <div class="flex items-start gap-4 group">
+              <div
+                class="w-12 h-12 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center shrink-0 group-hover:bg-[#0B8F4D]/20 group-hover:border-[#0B8F4D]/50 transition-all">
+                <i data-lucide="phone" class="text-white group-hover:text-[#0B8F4D] transition-colors"></i>
+              </div>
+              <div>
+                <h4 class="text-lg font-outfit font-semibold mb-1">Téléphone</h4>
+                <p class="text-white/60">(+237) 242 61 12 62</p>
+                <p class="text-white/60">(+237) 243 54 57 42</p>
+              </div>
+            </div>
+
+            <div class="flex items-start gap-4 group">
+              <div
+                class="w-12 h-12 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center shrink-0 group-hover:bg-[#0B8F4D]/20 group-hover:border-[#0B8F4D]/50 transition-all">
+                <i data-lucide="mail" class="text-white group-hover:text-[#0B8F4D] transition-colors"></i>
+              </div>
+              <div>
+                <h4 class="text-lg font-outfit font-semibold mb-1">Email</h4>
+                <a href="mailto:info@acameeonline.org"
+                  class="text-white/60 hover:text-white transition-colors">info@acameeonline.org</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="w-full lg:w-7/12">
+          <form
+            class="glass-form p-8 md:p-10 rounded-3xl border border-white/10 shadow-2xl relative overflow-hidden group/form">
+            <div
+              class="absolute inset-0 bg-gradient-to-br from-white/5 to-transparent pointer-events-none group-hover/form:from-white/10 transition-colors">
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+              <div class="form-group relative">
+                <input type="text" id="name"
+                  class="w-full bg-black/20 border border-white/10 rounded-xl px-4 pt-6 pb-2 text-white focus:outline-none focus:border-[#0B8F4D] transition-colors peer"
+                  placeholder=" " required>
+                <label for="name"
+                  class="absolute left-4 top-4 text-white/40 text-sm transition-all peer-focus:-translate-y-2 peer-focus:text-xs peer-focus:text-[#0B8F4D] peer-[:not(:placeholder-shown)]:-translate-y-2 peer-[:not(:placeholder-shown)]:text-xs">Nom
+                  complet</label>
+              </div>
+              <div class="form-group relative">
+                <input type="email" id="email"
+                  class="w-full bg-black/20 border border-white/10 rounded-xl px-4 pt-6 pb-2 text-white focus:outline-none focus:border-[#0B8F4D] transition-colors peer"
+                  placeholder=" " required>
+                <label for="email"
+                  class="absolute left-4 top-4 text-white/40 text-sm transition-all peer-focus:-translate-y-2 peer-focus:text-xs peer-focus:text-[#0B8F4D] peer-[:not(:placeholder-shown)]:-translate-y-2 peer-[:not(:placeholder-shown)]:text-xs">Email</label>
+              </div>
+            </div>
+            <div class="form-group relative mb-6">
+              <input type="text" id="subject"
+                class="w-full bg-black/20 border border-white/10 rounded-xl px-4 pt-6 pb-2 text-white focus:outline-none focus:border-[#0B8F4D] transition-colors peer"
+                placeholder=" " required>
+              <label for="subject"
+                class="absolute left-4 top-4 text-white/40 text-sm transition-all peer-focus:-translate-y-2 peer-focus:text-xs peer-focus:text-[#0B8F4D] peer-[:not(:placeholder-shown)]:-translate-y-2 peer-[:not(:placeholder-shown)]:text-xs">Sujet</label>
+            </div>
+            <div class="form-group relative mb-8">
+              <textarea id="message" rows="4"
+                class="w-full bg-black/20 border border-white/10 rounded-xl px-4 pt-6 pb-2 text-white focus:outline-none focus:border-[#0B8F4D] transition-colors peer resize-none"
+                placeholder=" " required></textarea>
+              <label for="message"
+                class="absolute left-4 top-4 text-white/40 text-sm transition-all peer-focus:-translate-y-2 peer-focus:text-xs peer-focus:text-[#0B8F4D] peer-[:not(:placeholder-shown)]:-translate-y-2 peer-[:not(:placeholder-shown)]:text-xs">Votre
+                message</label>
+            </div>
+            <button type="submit"
+              class="w-full bg-white text-[#0A1F44] hover:bg-[#0B8F4D] hover:text-white font-bold py-4 rounded-xl transition-all duration-300 transform hover:-translate-y-1 shadow-[0_10px_30px_rgba(255,255,255,0.1)] hover:shadow-[0_10px_30px_rgba(11,143,77,0.3)]">
+              Envoyer le message
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="bg-[#03060c] text-white/50 py-8 border-t border-white/5">
+    <div class="container mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-4">
+      <p>&copy; <span id="year"></span> ACAMEES. Tous droits réservés.</p>
+      <div class="flex gap-4">
+        <a href="#" class="hover:text-white transition-colors"><i data-lucide="linkedin" class="w-5 h-5"></i></a>
+        <a href="#" class="hover:text-white transition-colors"><i data-lucide="twitter" class="w-5 h-5"></i></a>
+        <a href="#" class="hover:text-white transition-colors"><i data-lucide="facebook" class="w-5 h-5"></i></a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Custom Cursor -->
+  <div class="custom-cursor hidden md:block"></div>
+  <div class="custom-cursor-follower hidden md:block"></div>
+
+  <script type="module" src="./main.js"></script>
+</body>
+
+</html>
